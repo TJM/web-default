@@ -1,0 +1,4 @@
+website/*
+logs/*
+stats/*
+!.gitignore

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for SITE in /web/*; do
+	domain=`basename $SITE`
+	if [ $domain == "TEMPLATE" ]; then continue; fi
+	if [ ! -d $SITE/stats ]; then
+		mkdir $SITE/stats
+	fi
+	# Apply Permissions
+	chown -R root:apache $SITE/stats
+	chmod -R u=rwX,g=rX,o=rX $SITE/stats
+	echo "Processing Stats for $domain"
+	/usr/bin/webalizer -D /var/run/webalizer.dnscache -N 5 -n "$domain" -o "$SITE/stats" "$SITE/logs/access.log"
+done
