@@ -3,34 +3,66 @@ web-default
 
 Very basic virtual hosting configuration
 
-## Initial Setup
+Initial Setup
+-------------
 Default/Global settings
-1. Clone git repo (or install)
-1. Link Scripts
-	mkdir -p /root/bin && ln -s /web/DEFAULT/bin/* /root/bin/
-    
-1. Link Virtual Host Permissions file
-	ln -s /web/DEFAULT/conf/y-VirtualHostPermissions.conf /etc/httpd/conf.d/
 
-1. Create a DEV password (used to access dev.DOMAIN.COM)
-	htpasswd -c /web/DEFAULT/pw/dev.pw DEVUSER
+* Clone git repo (or install)
 
-1. Insert SSH Keys into /web/DEFAULT/conf/authorized_keys2 (these will be automatically propagated to every website)
-	cat >> /web/DEFAULT/authorized_keys2
+```bash
+mkdir /web
+cd /web
+git clone https://github.com/TJM/web-default DEFAULT
+```
+
+* Link Scripts
+
+```bash
+mkdir -p /root/bin && ln -s /web/DEFAULT/bin/* /root/bin/
+```    
+
+* Link Virtual Host Permissions file
+
+```bash
+ln -s /web/DEFAULT/conf/y-VirtualHostPermissions.conf /etc/httpd/conf.d/
+```
+
+* Create a DEV password (used to access dev.DOMAIN.COM)
+
+```bash
+htpasswd -c /web/DEFAULT/pw/dev.pw DEVUSER
+```
+
+* Insert SSH Keys into /web/DEFAULT/conf/authorized_keys2 (these will be automatically propagated to every website)
+
+```bash
+cat >> /web/DEFAULT/authorized_keys2
 	[[paste keys in]]
 	CTRL+D
+```
 
-1. Run updateAllWebConfigs
-	updateAllWebConfigs
-    
-1. Restart Apache
-	service httpd restart
+* Run updateAllWebConfigs
 
-1. Create a default website
-	touch website/index.html
+```bash
+updateAllWebConfigs
+```
 
-## Adding a new host
-	useradd -d /web/somedomain.com -c "somedomain.com" somedomain
-	updateAllWebConfigs
-	service httpd restart
+* Restart Apache
+
+```bash
+service httpd restart
+```
+* Create a default website
+
+```bash
+touch website/index.html
+```
+
+Adding a new host
+------------------
+```bash
+useradd -d /web/somedomain.com -c "somedomain.com" somedomain
+updateAllWebConfigs
+service httpd restart
+```
 (TBD)
