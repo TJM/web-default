@@ -52,9 +52,16 @@ for SITE in /web/*; do
 
 	# Create Web Environments
 	for ENV in $ENVIRONMENTS; do
+		if [ ! -d $SITE/$ENV ]; then
+			mkdir -p $SITE/$ENV
+			/bin/chown -hR $owner:$group $SITE/$ENV
+			/bin/chmod u=rwX,g=rX,o=X $SITE/$ENV
+		fi
 		if [ ! -d $SITE/$ENV/$WEBDIR ]; then
 			mkdir -p $SITE/$ENV/$WEBDIR
 			echo "$ENV $domain" > $SITE/$ENV/$WEBDIR/index.html
+			/bin/chown -hR $owner:$group $SITE/$ENV
+			/bin/chmod -R u=rwX,g=rX,o=rX $SITE/$ENV/$WEBDIR
 		fi
 	done
 
@@ -106,9 +113,12 @@ for SITE in /web/*; do
 	if [ ! `/usr/bin/id $owner > /dev/null` ]; then
 		if [ $ROOT_OWNED_SITEDIR == 1 ]; then
 			/bin/chown root:$group $SITE
-			
+			/bin/chmod u=rwX,g=rwX,o=X $SITE
+			# Set sticky bit on top level site dir
+			/bin/chmod +t $SITE
 		else
 			/bin/chown $owner:$group $SITE
+			/bin/chmod u=rwX,g=rX,o=X $SITE
 		fi
 		for dir in $BASE_DIRS_ROOT; do
 			/bin/chown -hR root:$group $SITE/$dir
@@ -118,10 +128,7 @@ for SITE in /web/*; do
 			/bin/chown -hR $owner:$group $SITE/$dir
 			/bin/chmod -R u=rwX,g=rX,o= $SITE/$dir
 		done
-		for ENV in $ENVIRONMENTS; do
-			/bin/chown -hR $owner:$group $SITE/$ENV
-		done
-		/bin/chmod u=rwX,g=rX,o=X $SITE
+		# Allow the web server to read the htpasswd files
 		/bin/chgrp -R $WEBSRVUSER $SITE/pw
 	else
 		echo " *** WARNING: $domain - OWNER: $owner does not exist!? Create it and try again!"
