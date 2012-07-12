@@ -1,2 +1,3 @@
-authorized_keys2
-*.conf
+*
+!*.EXAMPLE
+!.gitignore
