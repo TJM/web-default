@@ -12,7 +12,7 @@ ENVIRONMENTS="live stage dev"
 WEBDIR="public_html"
 STAGE_PASSWD="welcome123"
 BASE_DIRS_ROOT="conf logs stats"
-BASE_DIRS_OWNER=".ssh pw tmp"
+BASE_DIRS_OWNER="pw tmp"
 ROOT_OWNED_SITEDIR=1
 WEBSRVUSER="apache"
 
@@ -43,7 +43,7 @@ for SITE in /web/*; do
 	SEDTAGSWAPS="$SEDTAGSWAPS -e s/GROUP/$group/g"
 
 	# Create BASE directories (if they don't exist)
-		# $SITE exists, thats why we are in here
+	# $SITE exists, thats why we are in here
 	for dir in $BASE_DIRS_ROOT $BASE_DIRS_OWNER; do
 		if [ ! -d $SITE/$dir ]; then
 			mkdir $SITE/$dir
@@ -66,11 +66,18 @@ for SITE in /web/*; do
 	done
 
 	# Setup SSH Keys
-	cat $DEVSSHKEYS > $SITE/.ssh/authorized_keys2
+	if [ ! -d $SITE/.ssh ]; then
+		mkdir $SITE/.ssh
+		chmod u=rwX,go= $SITE/.ssh
+	fi
+	if [ -f $DEVSSHKEYS ]; then
+		# Overwrite authorized_keys2 with the global config
+		cat $DEVSSHKEYS > $SITE/.ssh/authorized_keys2
+	fi
 	if [ -f $SITE/conf/authorized_keys2 ]; then
+		# Append site specific keys
 		cat $SITE/conf/authorized_keys2 >> $SITE/.ssh/authorized_keys2
 	fi
-
 
 	# Custom (non-template) httpd.conf
 	if [ -f $SITE/conf/httpd.conf.custom ]; then
