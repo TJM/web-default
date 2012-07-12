@@ -44,7 +44,7 @@
 		# DEFAULT
 		AuthType Basic       
 		AuthUserFile /web/DEFAULT/pw/dev.htpw
-		AuthName "CKDEVELOPMENT"
+		AuthName "DEVELOPMENT"
 		require valid-user
 		satisfy any
 	</Location>

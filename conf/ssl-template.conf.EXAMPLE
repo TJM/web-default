@@ -1,11 +1,12 @@
 ## TEMPLATE SSL CONFIG
+
 <VirtualHost *:443>
 	ServerName	www.DOMAIN
 	ServerAlias	DOMAIN
 	ServerAdmin webmaster@DOMAIN
-	DocumentRoot	/web/DOMAIN/website
-	ErrorLog	/web/DOMAIN/logs/secure-error.log
-	TransferLog	/web/DOMAIN/logs/secure-access.log
+	DocumentRoot	/web/DOMAIN/live/public_html
+	ErrorLog	/web/DOMAIN/logs/ssl-error.log
+	TransferLog	/web/DOMAIN/logs/ssl-access.log
 	SSLEngine	on
 	SSLCipherSuite	ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
 	SSLCertificateFile	/web/DOMAIN/conf/ssl/cert.pem
@@ -17,4 +18,64 @@
 	RewriteRule ^(.*/)?\.git+ - [F,L]
 	ErrorDocument 403 "Access Forbidden"
 </VirtualHost>                                  
+
+<VirtualHost *:443>
+	ServerName	stage.DOMAIN
+	ServerAdmin webmaster@DOMAIN
+	DocumentRoot	/web/DOMAIN/stage/public_html
+	ErrorLog	/web/DOMAIN/logs/ssl-stage-error.log
+	TransferLog	/web/DOMAIN/logs/ssl-stage-access.log
+	SSLEngine	on
+	SSLCipherSuite	ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+	SSLCertificateFile	/web/DOMAIN/conf/ssl/cert.pem
+	SSLCertificateKeyFile	/web/DOMAIN/conf/ssl/key.pem
+	SSLCertificateChainFile /web/DOMAIN/conf/ssl/ca.pem
+	CustomLog	/web/DOMAIN/logs/ssl_request_log \
+          "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+	RewriteEngine on
+	RewriteRule ^(.*/)?\.git+ - [F,L]
+	ErrorDocument 403 "Access Forbidden"
+	# STAGE Authentication
+	<Location />
+		Order deny,allow
+		deny from all
+		AuthType Basic
+		AuthUserFile /web/DOMAIN/pw/stage.htpw
+		AuthName "DOMAIN - STAGE"
+		require valid-user
+		satisfy any
+	</Location>
+</VirtualHost>
+
+<VirtualHost *:443>
+	ServerName	dev.DOMAIN
+	ServerAlias	DOMAIN
+	ServerAdmin webmaster@DOMAIN
+	DocumentRoot	/web/DOMAIN/dev/public_html
+	ErrorLog	/web/DOMAIN/logs/ssl-dev-error.log
+	TransferLog	/web/DOMAIN/logs/ssl-dev-access.log
+	SSLEngine	on
+	SSLCipherSuite	ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+	SSLCertificateFile	/web/DOMAIN/conf/ssl/cert.pem
+	SSLCertificateKeyFile	/web/DOMAIN/conf/ssl/key.pem
+	SSLCertificateChainFile /web/DOMAIN/conf/ssl/ca.pem
+	CustomLog	/web/DOMAIN/logs/ssl_request_log \
+          "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+	RewriteEngine on
+	RewriteRule ^(.*/)?\.git+ - [F,L]
+	ErrorDocument 403 "Access Forbidden"
+	# DEV Authentication
+	<Location />
+		Order deny,allow
+		deny from all
+		require valid-user
+		# DEFAULT
+		AuthType Basic       
+		AuthUserFile /web/DEFAULT/pw/dev.htpw
+		AuthName "DEVELOPMENT"
+		require valid-user
+		satisfy any
+	</Location>
+</VirtualHost>                                  
+
 ## END TEMPLATE SSL CONFIG
