@@ -23,8 +23,8 @@
 	ServerName	stage.DOMAIN
 	ServerAdmin webmaster@DOMAIN
 	DocumentRoot	/web/DOMAIN/stage/public_html
-	ErrorLog	/web/DOMAIN/logs/ssl-stage-error.log
-	TransferLog	/web/DOMAIN/logs/ssl-stage-access.log
+	ErrorLog	/web/DOMAIN/logs/stage-ssl-error.log
+	TransferLog	/web/DOMAIN/logs/stage-ssl-access.log
 	SSLEngine	on
 	SSLCipherSuite	ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
 	SSLCertificateFile	/web/DOMAIN/conf/ssl/cert.pem
@@ -49,11 +49,10 @@
 
 <VirtualHost *:443>
 	ServerName	dev.DOMAIN
-	ServerAlias	DOMAIN
 	ServerAdmin webmaster@DOMAIN
 	DocumentRoot	/web/DOMAIN/dev/public_html
-	ErrorLog	/web/DOMAIN/logs/ssl-dev-error.log
-	TransferLog	/web/DOMAIN/logs/ssl-dev-access.log
+	ErrorLog	/web/DOMAIN/logs/dev-ssl-error.log
+	TransferLog	/web/DOMAIN/logs/dev-ssl-access.log
 	SSLEngine	on
 	SSLCipherSuite	ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
 	SSLCertificateFile	/web/DOMAIN/conf/ssl/cert.pem

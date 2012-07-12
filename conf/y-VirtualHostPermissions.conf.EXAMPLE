@@ -14,16 +14,17 @@
 ### DEFAULT VirtualHost (blank page)
 
 NameVirtualHost *:80
+NameVirtualHost *:443
 
+# Default :80 VirtualHost
 <VirtualHost *:80>
 	ServerName	localhost.localdomain
 	ServerAdmin	webmaster@localhost.localdomain
 	DocumentRoot	/web/DEFAULT/website
 	CustomLog	/web/DEFAULT/logs/access.log combined
 	ErrorLog	/web/DEFAULT/logs/errors.log
-	#suPHP_UserGroup OWNER GROUP
-	#SuexecUserGroup OWNER GROUP
-
 </VirtualHost>
+
+# Default :443 VirtualHost?
 
 ### END DEFAULT VirtualHost
