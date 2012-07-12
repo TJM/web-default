@@ -82,11 +82,11 @@ for SITE in /web/*; do
 		# Apply SED script if it exists - else apply standard sed
 		if [ -f $SITE/conf/httpd.conf.sed ]; then
 			echo Applying customizations from $SITE/conf/httpd.conf.sed
-			sed $SEDTAGSWAPS -f $SITE/conf/httpd.conf.sed $HTTPDCONF > $SITE/conf/httpd.conf
+			SEDTAGSWAPS="$SEDTAGSWAPS -f $SITE/conf/httpd.conf.sed"
 		else
 			echo Applying standard configuration to $domain
-			sed $SEDTAGSWAPS $HTTPDCONF > $SITE/conf/httpd.conf
 		fi
+		sed $SEDTAGSWAPS $HTTPDCONF > $SITE/conf/httpd.conf
 
 		# Apply SSL
 		if [ -f $SITE/conf/ssl/cert.pem -a -f $SITE/conf/ssl/key.pem -a -f $SITE/conf/ssl/ca.pem ]; then
