@@ -15,6 +15,18 @@ cd /web
 git clone https://github.com/TJM/web-default DEFAULT
 ```
 
+* Copy Example configs
+
+```bash
+cd /web/DEFAULT/conf
+for file in *EXAMPLE; do
+  newfile=`basename $file .EXAMPLE`
+  cp $file $newfile
+done
+
+### EDIT AS NECESSARY
+```
+
 * Link Scripts
 
 ```bash
@@ -33,7 +45,7 @@ ln -s /web/DEFAULT/conf/y-VirtualHostPermissions.conf /etc/httpd/conf.d/
 htpasswd -c /web/DEFAULT/pw/dev.pw DEVUSER
 ```
 
-* Insert SSH Keys into /web/DEFAULT/conf/authorized_keys2 (these will be automatically propagated to every website)
+* Insert global SSH Keys into /web/DEFAULT/conf/authorized_keys2 (these will be automatically propagated to every website)
 
 ```bash
 cat >> /web/DEFAULT/authorized_keys2
