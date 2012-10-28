@@ -68,7 +68,6 @@ for SITE in /web/*; do
 	# Setup SSH Keys
 	if [ ! -d $SITE/.ssh ]; then
 		mkdir $SITE/.ssh
-		chmod u=rwX,go= $SITE/.ssh
 	fi
 	if [ -f $DEVSSHKEYS ]; then
 		# Overwrite authorized_keys2 with the global config
@@ -137,6 +136,8 @@ for SITE in /web/*; do
 		done
 		# Allow the web server to read the htpasswd files
 		/bin/chgrp -R $WEBSRVUSER $SITE/pw
+		# Apply .ssh permissions
+		chmod -R u=rwX,go= $SITE/.ssh
 	else
 		echo " *** WARNING: $domain - OWNER: $owner does not exist!? Create it and try again!"
 	fi
