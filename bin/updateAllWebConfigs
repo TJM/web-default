@@ -119,13 +119,12 @@ for SITE in /web/*; do
 	if [ ! `/usr/bin/id $owner > /dev/null` ]; then
 		if [ $ROOT_OWNED_SITEDIR == 1 ]; then
 			/bin/chown root:$group $SITE
-			/bin/chmod u=rwX,g=rwX,o=X $SITE
-			# Set sticky bit on top level site dir
-			/bin/chmod +t $SITE
 		else
 			/bin/chown $owner:$group $SITE
-			/bin/chmod u=rwX,g=rX,o=X $SITE
 		fi
+		/bin/chmod u=rwX,g=rX,o=X $SITE
+		# Set sticky bit on top level site dir
+		/bin/chmod +t $SITE
 		for dir in $BASE_DIRS_ROOT; do
 			/bin/chown -hR root:$group $SITE/$dir
 			/bin/chmod -R u=rwX,g=rX,o= $SITE/$dir
