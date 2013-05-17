@@ -8,7 +8,7 @@ Initial Setup
 -------------
 Default/Global settings
 
-*** ngix is assumed to be installed via the passenger-install-nginx-module utility after installing rvm and the desired version of ruby, and "rvm use" -ing that version
+NOTE: ngix is assumed to be installed via the passenger-install-nginx-module utility after installing rvm and the desired version of ruby, and "rvm use" -ing that version
 
 * Clone git repo (or install)
 
@@ -37,8 +37,8 @@ mkdir -p /root/bin && ln -s /web/DEFAULT/bin/* /root/bin/
 ```    
 
 * Create conf.d and add it to the config
-** EDIT: /opt/nginx/conf/nginx.conf
-*** Add "        include conf.d/*.conf;" before the last "}"
+ * EDIT: /opt/nginx/conf/nginx.conf
+  * Add "        include conf.d/*.conf;" before the last "}"
 
 ```bash
 mkdir /opt/nginx/conf/conf.d
@@ -66,9 +66,10 @@ updateAllWebConfigs
 ```
 
 * Restart Nginx
+NOTE: init scripts are not installed by default
 
 ```bash
-service httpd restart
+service nginx restart
 ```
 * Create a default website
 
