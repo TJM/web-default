@@ -17,10 +17,12 @@ git clone https://github.com/TJM/web-default DEFAULT
 
 * Copy Example configs
 
+NOTE: For NGINX specific steps see Readme-Nginx.md
+
 ```bash
 cd /web/DEFAULT/conf
-for file in *EXAMPLE; do
-  newfile=`basename $file .EXAMPLE`
+for file in *APACHE.EXAMPLE; do
+  newfile=`basename $file .APACHE.EXAMPLE`
   cp $file $newfile
 done
 

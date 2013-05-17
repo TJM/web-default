@@ -6,3 +6,5 @@ BASE_DIRS_ROOT="conf logs stats"
 BASE_DIRS_OWNER=".ssh pw tmp"
 ROOT_OWNED_SITEDIR=1
 WEBSRVUSER="apache"
+WEBSRVBIN="httpd"
+NGINX=0

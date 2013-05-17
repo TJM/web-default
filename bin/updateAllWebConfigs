@@ -12,9 +12,12 @@ ENVIRONMENTS="live stage dev"
 WEBDIR="public_html"
 STAGE_PASSWD="welcome123"
 BASE_DIRS_ROOT="conf logs stats"
-BASE_DIRS_OWNER="pw tmp"
+BASE_DIRS_OWNER="pw tmp .ssh"
 ROOT_OWNED_SITEDIR=1
 WEBSRVUSER="apache"
+WEBSRVBIN="httpd"
+NGINX=0
+
 
 # Load Site Specific Config
 if [ -f $TEMPLATEDIR/updateWeb.conf ]; then
@@ -108,7 +111,11 @@ for SITE in /web/*; do
 	fi
 
 	# Add Site Config to the $VHOSTCONF
-	echo "Include ${SITE}/conf/httpd.conf" >> $VHOSTCONF
+	if [ $NGINX == 1 ]; then
+		echo "include ${SITE}/conf/httpd.conf;" >> $VHOSTCONF
+	else
+		echo "Include ${SITE}/conf/httpd.conf" >> $VHOSTCONF
+	fi
 
 	# Create a basic htpasswd file for "Stage"
 	if [ ! -f $SITE/pw/stage.htpw ]; then
@@ -137,6 +144,8 @@ for SITE in /web/*; do
 		/bin/chgrp -R $WEBSRVUSER $SITE/pw
 		# Apply .ssh permissions
 		chmod -R u=rwX,go= $SITE/.ssh
+		# Apply log permissions
+		chown -hR $WEBSRVUSER $SITE/logs
 	else
 		echo " *** WARNING: $domain - OWNER: $owner does not exist!? Create it and try again!"
 	fi
@@ -156,6 +165,6 @@ fi
 
 echo .
 echo " *** Testing httpd.conf syntax *** "
-httpd -t
+$WEBSRVBIN -t
 echo .
-echo " *** Make sure it looks the way you want, then restart apache *** "
+echo " *** Make sure it looks the way you want, then restart $WEBSRVBIN *** "
