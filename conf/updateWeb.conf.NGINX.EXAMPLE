@@ -1,0 +1,11 @@
+## Configuration for updateAllWebConfig script
+ENVIRONMENTS="live stage dev"
+WEBDIR="public_html"
+STAGE_PASSWD="welcome123"
+BASE_DIRS_ROOT="conf logs stats"
+BASE_DIRS_OWNER=".ssh pw tmp"
+ROOT_OWNED_SITEDIR=0
+WEBSRVUSER="nginx"
+WEBSRVBIN="/opt/nginx/sbin/nginx"
+VHOSTCONF=/opt/nginx/conf/conf.d/z-vhost.conf
+NGINX=1
