@@ -8,7 +8,7 @@
 	ErrorLog	/web/DOMAIN/logs/ssl-error.log
 	TransferLog	/web/DOMAIN/logs/ssl-access.log
 	SSLEngine	on
-	SSLCipherSuite	ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+	SSLCipherSuite	ALL:!ADH:!NULL:!EXP:!SSLv2:!LOW:!MEDIUM:RC4+RSA:+HIGH
 	SSLCertificateFile	/web/DOMAIN/conf/ssl/cert.pem
 	SSLCertificateKeyFile	/web/DOMAIN/conf/ssl/key.pem
 	SSLCertificateChainFile /web/DOMAIN/conf/ssl/ca.pem
@@ -26,7 +26,7 @@
 	ErrorLog	/web/DOMAIN/logs/stage-ssl-error.log
 	TransferLog	/web/DOMAIN/logs/stage-ssl-access.log
 	SSLEngine	on
-	SSLCipherSuite	ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+	SSLCipherSuite ALL:!ADH:!NULL:!EXP:!SSLv2:!LOW:!MEDIUM:RC4+RSA:+HIGH
 	SSLCertificateFile	/web/DOMAIN/conf/ssl/cert.pem
 	SSLCertificateKeyFile	/web/DOMAIN/conf/ssl/key.pem
 	SSLCertificateChainFile /web/DOMAIN/conf/ssl/ca.pem
@@ -54,7 +54,7 @@
 	ErrorLog	/web/DOMAIN/logs/dev-ssl-error.log
 	TransferLog	/web/DOMAIN/logs/dev-ssl-access.log
 	SSLEngine	on
-	SSLCipherSuite	ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+	SSLCipherSuite ALL:!ADH:!NULL:!EXP:!SSLv2:!LOW:!MEDIUM:RC4+RSA:+HIGH
 	SSLCertificateFile	/web/DOMAIN/conf/ssl/cert.pem
 	SSLCertificateKeyFile	/web/DOMAIN/conf/ssl/key.pem
 	SSLCertificateChainFile /web/DOMAIN/conf/ssl/ca.pem
